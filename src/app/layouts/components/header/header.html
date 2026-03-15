@@ -1,0 +1,27 @@
+<header class="header">
+  <mat-toolbar class="header__toolbar">
+    <div class="brand">
+      <button matIconButton class="toogle-btn" (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span (click)="navigateHome()" class="brand-name">ABC Blogs</span>
+    </div>
+    <div class="header__links">
+      <app-nav-links></app-nav-links>
+    </div>
+    <div class="header__actions">
+      <div class="auth-buttons">
+        @if (_authService.getCurrUser()) {
+          <a mat-stroked-button class="btn" (click)="navigateCreate()">
+            <mat-icon>edit_note</mat-icon>
+            Write
+          </a>
+          <a mat-button class="btn btn--active" (click)="logout()">Logout</a>
+        } @else {
+          <a mat-button class="btn" routerLink="/login" routerLinkActive="btn--active">Login</a>
+          <a mat-button class="btn" routerLink="/signup" routerLinkActive="btn--active">Signup</a>
+        }
+      </div>
+    </div>
+  </mat-toolbar>
+</header>

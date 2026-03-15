@@ -1,0 +1,9 @@
+@if (paginationMeta()) {
+  <mat-paginator
+    [length]="paginationMeta()?.total"
+    [pageSize]="paginationMeta()?.limit"
+    aria-label="Select page"
+    (page)="handlePageChange($event)"
+  >
+  </mat-paginator>
+}

@@ -1,0 +1,60 @@
+@use 'index' as *;
+
+.header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1001;
+  border-bottom: 1px solid $secondary-color;
+  &__toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .brand-name {
+        cursor: pointer;
+      }
+    }
+
+    .toogle-btn {
+      display: none;
+    }
+  }
+
+  &__actions {
+    .auth-buttons {
+      display: flex;
+      gap: $spacing-2;
+      .btn {
+        border: 1px solid $secondary-color;
+        &--active {
+          color: $white;
+          border: 1px solid $black;
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+
+  @include respond('xs') {
+    &__toolbar {
+      .toogle-btn {
+        display: flex;
+      }
+
+      .brand {
+        .brand-name {
+          font-size: $font-size-md;
+        }
+      }
+    }
+
+    &__links {
+      display: none;
+    }
+  }
+}
