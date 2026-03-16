@@ -2,7 +2,6 @@ import { Component, DestroyRef, HostListener, inject, OnInit, signal } from '@an
 import { NavLinks } from '../nav-links/nav-links';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { HeaderState } from '../../services/header-state';
-import { AuthService } from '@core/service/auth/auth-service';
 import { IErrorResponse } from 'app/types/api-response.types';
 import { SnackbarService } from '@core/service/snackbar/snackbar-service';
 
@@ -11,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AuthService } from '@features/auth/service/auth/auth-service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
@@ -30,8 +31,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class Header implements OnInit {
   showSidenav = signal(false);
-  private _headerStateService = inject(HeaderState);
+
   _authService = inject(AuthService);
+  private _headerStateService = inject(HeaderState);
   private _snackbarService = inject(SnackbarService);
   private _destroyRef = inject(DestroyRef);
   private _router = inject(Router);
@@ -52,16 +54,19 @@ export class Header implements OnInit {
   }
 
   logout() {
-    this._authService.logoutUser().subscribe({
-      next: (res) => {
-        this._snackbarService.success(res.message);
-        this._authService.clearCurrUser();
-        this._router.navigate(['/login']);
-      },
-      error: (err: IErrorResponse) => {
-        this._snackbarService.error(err.message);
-      },
-    });
+    this._authService
+      .logoutUser()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this._snackbarService.success(res.message);
+          this._authService.clearCurrUser();
+          this._router.navigate(['/login']);
+        },
+        error: (err: IErrorResponse) => {
+          this._snackbarService.error(err.message);
+        },
+      });
   }
 
   navigateHome() {
@@ -69,17 +74,20 @@ export class Header implements OnInit {
   }
 
   navigateCreate() {
-    this._router.navigate(['/create']);
+    this._router.navigate(['/mine/create']);
   }
 
   ngOnInit(): void {
-    // this._authService.fetchCurrUser().subscribe({
-    //   next: (res) => {
-    //     this._authService.setCurrUser(res.data);
-    //   },
-    //   error: () => {
-    //     this._authService.clearCurrUser();
-    //   },
-    // });
+    this._authService
+      .fetchCurrUser()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this._authService.setCurrUser(res.data);
+        },
+        error: () => {
+          this._authService.clearCurrUser();
+        },
+      });
   }
 }

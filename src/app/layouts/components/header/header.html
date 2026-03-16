@@ -11,7 +11,7 @@
     </div>
     <div class="header__actions">
       <div class="auth-buttons">
-        @if (_authService.getCurrUser()) {
+        @if (_authService.currUser()) {
           <a mat-stroked-button class="btn" (click)="navigateCreate()">
             <mat-icon>edit_note</mat-icon>
             Write
