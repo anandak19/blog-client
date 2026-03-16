@@ -1,0 +1,40 @@
+@use 'index' as *;
+
+.edit-blog {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+
+  &__wrapper {
+    width: 80%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
+    margin-top: 10px;
+  }
+}
