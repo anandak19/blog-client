@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   login(data: IUserLogin) {
-    return this._http.post<IBaseResponse>(`${this.API_ENDPOINT}/login`, data);
+    return this._http.post<ISuccessResponse<IPayload>>(`${this.API_ENDPOINT}/login`, data);
   }
 
   logoutUser() {

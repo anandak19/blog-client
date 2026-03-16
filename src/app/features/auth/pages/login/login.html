@@ -1,7 +1,7 @@
 <div class="login full-page">
   <div class="login__wrapper">
     <h2>Login</h2>
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
       <!-- controls -->
       <div class="login__controls">
         <mat-form-field appearance="outline">
@@ -28,7 +28,12 @@
 
       <!-- actions/buttons  -->
       <div class="login__actions">
-        <app-loading-button text="Login" type="submit" size="large"></app-loading-button>
+        <app-loading-button
+          text="Login"
+          type="submit"
+          size="large"
+          [isLoading]="isLoading"
+        ></app-loading-button>
       </div>
     </form>
     <div class="login__extras">

@@ -7,6 +7,10 @@ import { MatFormField, MatLabel, MatError, MatSuffix } from '@angular/material/s
 import { MatIcon } from '@angular/material/icon';
 import { LoadingButton } from '@shared/components/ui/loading-button/loading-button';
 import { MatInputModule } from '@angular/material/input';
+import { IUserLogin } from '@features/auth/models/login.model';
+import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IErrorResponse } from 'app/types/api-response.types';
 
 @Component({
   selector: 'app-login',
@@ -53,7 +57,27 @@ export class Login implements OnInit {
       this.isLoading.set(true);
 
       const formValues = this.loginForm.getRawValue();
-      console.log(formValues);
+      const loginData: IUserLogin = {
+        email: formValues.email,
+        password: formValues.password,
+      };
+
+      this._authService
+        .login(loginData)
+        .pipe(
+          finalize(() => this.isLoading.set(false)),
+          takeUntilDestroyed(this._destroyRef),
+        )
+        .subscribe({
+          next: (res) => {
+            this._snackbar.success(res.message);
+            this._authService.setCurrUser(res.data);
+            this._router.navigate(['/']);
+          },
+          error: (err: IErrorResponse) => {
+            this._snackbar.error(err.message);
+          },
+        });
     } else {
       this.loginForm.markAllAsTouched();
     }
