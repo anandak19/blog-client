@@ -2,7 +2,6 @@ import { Component, DestroyRef, HostListener, inject, OnInit, signal } from '@an
 import { NavLinks } from '../nav-links/nav-links';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { HeaderState } from '../../services/header-state';
-import { AuthService } from '@core/service/auth/auth-service';
 import { IErrorResponse } from 'app/types/api-response.types';
 import { SnackbarService } from '@core/service/snackbar/snackbar-service';
 
@@ -11,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AuthService } from '@features/auth/service/auth/auth-service';
 
 @Component({
   selector: 'app-header',

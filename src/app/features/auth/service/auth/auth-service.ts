@@ -1,10 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { IBaseResponse, ISuccessResponse } from 'app/types/api-response.types';
-
-export interface IPayload {
-  firstName: string;
-}
+import { ISuccessResponse, IBaseResponse } from 'app/types/api-response.types';
+import { IPayload, IUserLogin } from '../../models/login.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +26,10 @@ export class AuthService {
 
   fetchCurrUser() {
     return this._http.get<ISuccessResponse<IPayload>>(`${this.API_ENDPOINT}/me`);
+  }
+
+  login(data: IUserLogin) {
+    return this._http.post<IBaseResponse>(`${this.API_ENDPOINT}/login`, data);
   }
 
   logoutUser() {

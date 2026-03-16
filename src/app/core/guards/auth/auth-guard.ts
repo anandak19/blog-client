@@ -1,7 +1,7 @@
 import { DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '@core/service/auth/auth-service';
+import { AuthService } from '@features/auth/service/auth/auth-service';
 import { catchError, map, of } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {

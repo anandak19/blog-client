@@ -1,3 +1,38 @@
 <div class="login full-page">
-  <p>login works!</p>
+  <div class="login__wrapper">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm">
+      <!-- controls -->
+      <div class="login__controls">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error>Error email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hidePassword() ? 'password' : 'text'"
+          />
+
+          <mat-icon matSuffix (click)="hidePassword.set(!hidePassword())">
+            {{ hidePassword() ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+
+          <mat-error>Error password</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- actions/buttons  -->
+      <div class="login__actions">
+        <app-loading-button text="Login" type="submit" size="large"></app-loading-button>
+      </div>
+    </form>
+    <div class="login__extras">
+      <p>Don't have an account <a (click)="navigateSignup()">Signup</a></p>
+    </div>
+  </div>
 </div>
