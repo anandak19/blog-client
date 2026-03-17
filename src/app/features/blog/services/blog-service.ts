@@ -7,7 +7,7 @@ import {
   ISuccessResponse,
 } from 'app/types/api-response.types';
 import { IPaginationQuery } from 'app/types/query-filters.types';
-import { IListBlog } from '../models/blog.interface';
+import { IBlogDetails, IListBlog } from '../models/blog.interface';
 
 export type IFindAllBlog = ISuccessResponse<IPaginatedResult<IListBlog>>;
 
@@ -39,5 +39,9 @@ export class BlogService {
 
   deleteOneBlog(blogId: string) {
     return this._httpClient.delete<HttpResponse>(`${this.API_ENDPOINT}/user/${blogId}`);
+  }
+
+  findBlogDetails(blogId: string) {
+    return this._httpClient.get<ISuccessResponse<IBlogDetails>>(`${this.API_ENDPOINT}/${blogId}`);
   }
 }

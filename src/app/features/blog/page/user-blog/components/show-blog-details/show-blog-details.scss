@@ -1,0 +1,33 @@
+.blog-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    .title {
+      h1 {
+        font-size: 44px;
+      }
+    }
+    .author {
+      display: flex;
+      gap: 24px;
+    }
+    .cover-image {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #d1d1d1;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

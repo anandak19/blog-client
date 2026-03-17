@@ -1,0 +1,24 @@
+.view-one-blog {
+  padding: 40px 20px;
+  &__wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .head {
+        display: flex;
+        justify-content: space-between;
+        background-color: #fafafa;
+        border-radius: 20px;
+        padding: 4px;
+      .back-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .actions {
+        display: flex;
+      }
+    }
+  }
+}
