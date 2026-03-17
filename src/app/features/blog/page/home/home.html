@@ -1,3 +1,17 @@
 <div class="home full-page">
-  <p>home works!</p>
+  <div class="home__wrapper">
+    <div class="home__head">
+      <h2>Latest Blogs</h2>
+      <p>Explore the latest blogs of people</p>
+    </div>
+
+    <div class="home__body">
+      <app-blogs-listing-component
+        [blogs]="blogs"
+        [paginationMeta]="paginationMeta"
+        (onPageChange)="updatePage($event)"
+        (onBlogClick)="handleBlogClick($event)"
+      ></app-blogs-listing-component>
+    </div>
+  </div>
 </div>

@@ -7,13 +7,13 @@ export interface ICreateBlog {
 export type IUpdateBlog = ICreateBlog;
 
 export interface IBlog extends Omit<ICreateBlog, 'image'> {
-  imageUrl: string;
+  image: string;
   id: string;
   userId: string;
   createdAt: string;
 }
 
-export interface IListBlog extends Pick<IBlog, 'title' | 'imageUrl' | 'id' | 'createdAt'> {
+export interface IListBlog extends Pick<IBlog, 'title' | 'image' | 'id' | 'createdAt'> {
   writerName: string;
 }
 
