@@ -66,11 +66,12 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
   private _blogService = inject(BlogService);
 
   //----properties----
+  @Input() id!: string;
+  @Input() isEditMode = signal(false);
   @Input() isFormSubmitted = signal<boolean>(false);
   @Input() isFormLoading = signal<boolean>(false);
 
   @Output() blogFormData = new EventEmitter<FormData>();
-  @Input() id!: string;
   blogForm!: FormGroup<{
     title: FormControl<string>;
     content: FormControl<string>;
@@ -129,7 +130,7 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
 
     console.log(this.blogForm.value);
     if (this.blogForm.valid) {
-      if (!this.selectedFile()) {
+      if (!this.isEditMode() && !this.selectedFile()) {
         this._snackbar.error('Please add an image');
         return;
       }
@@ -144,21 +145,7 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
       formData.append('image', this.selectedFile()!);
       formData.append('content', blogFormValues.content);
 
-      this._blogService
-        .createBlog(formData)
-        .pipe(
-          takeUntilDestroyed(this._destroyRef),
-          finalize(() => this.isFormLoading.set(false)),
-        )
-        .subscribe({
-          next: (res) => {
-            this._snackbar.success(res.message);
-            this._router.navigate(['/mine']);
-          },
-          error: (err: IErrorResponse) => {
-            this._snackbar.error(err.message);
-          },
-        });
+      this.blogFormData.emit(formData);
     } else {
       this._snackbar.error('Please Provide all details');
       this.blogForm.markAllAsDirty();
