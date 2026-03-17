@@ -4,6 +4,7 @@
   class="btn"
   [ngClass]="['btn--' + variant, 'btn--' + size]"
   (click)="onBtnClick()"
+  [attr.from]="form"
 >
   @if (!isLoading()) {
     {{ text }}

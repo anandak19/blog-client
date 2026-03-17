@@ -48,3 +48,19 @@ body {
 .text-center {
   justify-content: center;
 }
+
+.NgxEditor__Content {
+  all: revert;
+  font-family: 'Poppins', sans-serif;
+
+  ul,
+  ol {
+    padding-inline-start: 20px;
+  }
+}
+
+.NgxEditor__Content {
+  border: none;
+  outline: none;
+  min-height: 200px !important;
+}

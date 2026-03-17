@@ -1,0 +1,12 @@
+<div class="preview">
+    <div class="head">
+        <h1>{{blogFormValues.title}}</h1>
+        <div class="image-banner">
+            <img [src]="imageUrl ?? 'https://www.innait.com/wp-content/uploads/2022/07/placeholder-1024x640-1-768x480.jpg'" alt="">
+        </div>
+    </div>
+
+    <div class="body">
+        <div [innerHTML]="blogFormValues.content"></div>
+    </div>
+</div>

@@ -13,6 +13,7 @@ export class LoadingButton {
   @Input() variant: 'primary' | 'secondary' | 'danger' | 'success' = 'primary';
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
+  @Input() form!: string;
 
   @Input() isLoading = signal(false); // *
   @Input() text!: string; // *
