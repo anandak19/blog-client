@@ -9,6 +9,7 @@ import { IBlogDetails } from '@features/blog/models/blog.interface';
 import { BlogService } from '@features/blog/services/blog-service';
 import { IErrorResponse } from 'app/types/api-response.types';
 import { ShowBlogDetails } from '../../components/show-blog-details/show-blog-details';
+import { DialogService } from '@core/service/dialog/dialog-service';
 
 @Component({
   selector: 'app-view-my-one-blog',
@@ -24,6 +25,7 @@ export class ViewMyOneBlog implements OnInit {
   private _destroyRef = inject(DestroyRef);
   private _blogService = inject(BlogService);
   private _location = inject(Location);
+  private _dialogService = inject(DialogService);
 
   //----properties----
   @Input() id!: string;
@@ -37,10 +39,25 @@ export class ViewMyOneBlog implements OnInit {
   onDelete() {
     this.checkIdValid();
 
-    alert(`Delete: ${this.id}`);
+    this._dialogService.ask().then((yes) => {
+      if (yes) {
+        this._blogService
+          .deleteOneBlog(this.id)
+          .pipe(takeUntilDestroyed(this._destroyRef))
+          .subscribe({
+            next: (res) => {
+              this._snackbar.success(res.message);
+              this.onBack()
+            },
+            error: (err: IErrorResponse) => {
+              this._snackbar.error(err.message);
+            },
+          });
+      }
+    });
   }
 
-  onEdit(){
+  onEdit() {
     this.checkIdValid();
     alert(`Edit: ${this.id}`);
   }
