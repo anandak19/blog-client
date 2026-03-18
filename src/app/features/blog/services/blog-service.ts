@@ -23,8 +23,11 @@ export class BlogService {
   }
 
   // pending
-  updateBlog(formData: FormData) {
-    return this._httpClient.patch<IBaseResponse>(`${this.API_ENDPOINT}/user`, formData);
+  updateBlog(blogId: string, formData: FormData) {
+    return this._httpClient.patch<IBaseResponse>(
+      `${this.API_ENDPOINT}/user/${blogId}/update`,
+      formData,
+    );
   }
 
   findAll(pagination: IPaginationQuery) {

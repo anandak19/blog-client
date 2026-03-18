@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +10,7 @@ import { BlogsListingComponent } from '@features/blog/components/blogs-listing-c
 
 @Component({
   selector: 'app-home',
-  imports: [DatePipe, BlogsListingComponent],
+  imports: [BlogsListingComponent],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

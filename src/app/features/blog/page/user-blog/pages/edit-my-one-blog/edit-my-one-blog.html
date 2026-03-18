@@ -1,8 +1,7 @@
 <div class="edit-blog full-page">
   <div class="edit-blog__wrapper">
-
     <div class="edit-blog__header">
-      <button mat-icon-button class="back-btn">
+      <button mat-icon-button class="back-btn" (click)="onBack()">
         <mat-icon>arrow_back</mat-icon>
       </button>
 
@@ -10,8 +9,13 @@
     </div>
 
     <div class="edit-blog__content">
-      <app-blog-editor-component></app-blog-editor-component>
+      <app-blog-editor-component
+        [id]="id"
+        [isEditMode]="true"
+        (blogFormData)="handleEdit($event)"
+        [isFormLoading]="isFormLoading"
+        [isFormSubmitted]="isFormSubmitted"
+      ></app-blog-editor-component>
     </div>
-
   </div>
 </div>

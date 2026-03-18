@@ -5,10 +5,12 @@ import {
   EventEmitter,
   inject,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   signal,
+  SimpleChanges,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -33,6 +35,7 @@ import { BlogService } from '@features/blog/services/blog-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
 import { IErrorResponse } from 'app/types/api-response.types';
+import { IBlogDetails } from '@features/blog/models/blog.interface';
 
 export interface IBlogForm {
   title: string;
@@ -67,7 +70,7 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
 
   //----properties----
   @Input() id!: string;
-  @Input() isEditMode = signal(false);
+  @Input() isEditMode: boolean = false;
   @Input() isFormSubmitted = signal<boolean>(false);
   @Input() isFormLoading = signal<boolean>(false);
 
@@ -102,6 +105,14 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  patchBlogForm(blog: IBlogDetails) {
+    this.blogForm.patchValue({
+      title: blog.title,
+      content: blog.content,
+    });
+    this.previewUrl.set(blog.image);
+  }
+
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
 
@@ -130,7 +141,7 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
 
     console.log(this.blogForm.value);
     if (this.blogForm.valid) {
-      if (!this.isEditMode() && !this.selectedFile()) {
+      if (!this.isEditMode && !this.selectedFile()) {
         this._snackbar.error('Please add an image');
         return;
       }
@@ -142,7 +153,9 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
       const formData = new FormData();
 
       formData.append('title', blogFormValues.title);
-      formData.append('image', this.selectedFile()!);
+      if(this.selectedFile()){
+        formData.append('image', this.selectedFile()!);
+      }
       formData.append('content', blogFormValues.content);
 
       this.blogFormData.emit(formData);
@@ -174,6 +187,28 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
 
       return null;
     };
+  }
+
+  getBlogDetails() {
+    this.checkIdValid();
+
+    this._blogService
+      .findBlogDetails(this.id)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.patchBlogForm(res.data);
+        },
+        error: (err: IErrorResponse) => {
+          this._snackbar.error(err.message);
+        },
+      });
+  }
+
+  checkIdValid() {
+    if (!this.id) {
+      this._router.navigate(['/']);
+    }
   }
 
   get imageError() {
@@ -210,6 +245,9 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initBlogForm();
     this.editor = new Editor();
+    if (this.id) {
+      this.getBlogDetails();
+    }
   }
 
   ngOnDestroy(): void {

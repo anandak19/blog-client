@@ -47,7 +47,7 @@ export class ViewMyOneBlog implements OnInit {
           .subscribe({
             next: (res) => {
               this._snackbar.success(res.message);
-              this.onBack()
+              this.onBack();
             },
             error: (err: IErrorResponse) => {
               this._snackbar.error(err.message);
@@ -59,7 +59,7 @@ export class ViewMyOneBlog implements OnInit {
 
   onEdit() {
     this.checkIdValid();
-    alert(`Edit: ${this.id}`);
+    this._router.navigate(['edit'], { relativeTo: this._activatedRoute });
   }
 
   getBlogDetails() {
@@ -80,7 +80,7 @@ export class ViewMyOneBlog implements OnInit {
 
   checkIdValid() {
     if (!this.id) {
-      this._router.navigate(['/']);
+      this._router.navigate(['mine']);
     }
   }
 
