@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'blogapi.urbantasker.online/api',
+  apiUrl: 'https://blogapi.urbantasker.online/api',
 };
