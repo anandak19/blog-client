@@ -1,0 +1,90 @@
+@use 'index' as *;
+
+.blog-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__header{
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+  }
+
+  .full-width,
+  &__image-control {
+    width: 100%;
+  }
+
+  .upload-box {
+    display: block;
+    width: 100%;
+    height: 220px; // banner height
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    background: #fafafa;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #3f51b5;
+      background: #f5f7ff;
+    }
+
+    .placeholder {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      text-align: center;
+
+      mat-icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+        color: #aaa;
+      }
+
+      p {
+        margin: 0;
+        font-weight: 500;
+      }
+
+      span {
+        font-size: 12px;
+        color: #bbb;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // makes it banner style
+    }
+  }
+
+  &__content-control {
+    width: 100%;
+    margin-top: 20px;
+
+    border: 1px solid #ddd;
+    overflow: hidden;
+
+    ngx-editor-menu {
+      border-bottom: 1px solid #eee;
+      background: #fafafa;
+    }
+
+    ngx-editor {
+      display: block;
+      min-height: 200px !important;
+    }
+
+    /* 🔥 Fix list alignment */
+  }
+
+
+}

@@ -1,0 +1,32 @@
+<div class="blogs-listing">
+  <div class="blogs-listing__blogs-wrapper">
+    @for (b of blogs(); track $index) {
+      <div class="blog" (click)="handleOnBlogClick(b.id)">
+        <div class="image">
+          <img [src]="b.image" alt="" />
+        </div>
+
+        <div class="data">
+          <div class="title">
+            <h4>{{ b.title }}</h4>
+          </div>
+
+          <div class="meta">
+            <p class="author">{{ b.writerName }}</p>
+            <p class="date">{{ b.createdAt | date }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="pagination">
+    <mat-paginator
+      [length]="paginationMeta()?.total"
+      [pageSize]="paginationMeta()?.limit"
+      aria-label="Select page"
+      (page)="handlePage($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

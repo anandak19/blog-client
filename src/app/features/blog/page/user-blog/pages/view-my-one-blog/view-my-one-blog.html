@@ -1,1 +1,21 @@
-<p>view-my-one-blog works!</p>
+<div class="view-one-blog full-page">
+  <div class="view-one-blog__wrapper">
+    <div class="head">
+      <button mat-icon-button class="back-btn" (click)="onBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div class="actions">
+        <button mat-icon-button class="back-btn" (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="back-btn" (click)="onDelete()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="body">
+      <app-show-blog-details [blogDetails]="blogDetails"></app-show-blog-details>
+    </div>
+  </div>
+</div>
