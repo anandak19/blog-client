@@ -19,7 +19,6 @@ export class SignupService {
   }
 
   validateOtp(otpData: IOtpVerify) {
-    console.log(otpData);
     return this._http.post<IBaseResponse>(`${this.API_ENDPOINT}/verify`, otpData);
   }
 

@@ -1,1 +1,65 @@
-<p>blog-editor-component works!</p>
+<div class="blog-editor">
+  <div class="blog-editor__header">
+    <app-loading-button
+      [text]="isEditorView() ? 'Preview' : 'Edit'"
+      (clickEvent)="isEditorView.set(!isEditorView())"
+    ></app-loading-button>
+    <app-loading-button
+      text="Save"
+      type="submit"
+      [isLoading]="isFormLoading"
+      (clickEvent)="onFormSubmit()"
+    ></app-loading-button>
+  </div>
+  <div class="blog-editor__body">
+    @if (isEditorView()) {
+      <form [formGroup]="blogForm" (ngSubmit)="onFormSubmit()">
+        <div class="blog-editor__title-control">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Blog Title</mat-label>
+            <input matInput formControlName="title" />
+            <mat-error>{{titleError}}</mat-error>
+          </mat-form-field>
+        </div>
+        <!-- imaage  -->
+        <div class="blog-editor__image-control">
+          <label class="upload-box">
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+
+            @if (previewUrl()) {
+              <img [src]="previewUrl()" alt="Banner Preview" />
+            } @else {
+              <div class="placeholder">
+                <mat-icon>cloud_upload</mat-icon>
+                <p>Click to upload banner image</p>
+                <span>Recommended: 1200 x 400 and below 2MB size</span>
+                <mat-error class="error-text">{{ imageError }}</mat-error>
+              </div>
+            }
+          </label>
+        </div>
+        <div class="blog-editor__content-control">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+          <ngx-editor
+            [editor]="editor"
+            formControlName="content"
+            placeholder="Write your blog content here..."
+          >
+          </ngx-editor>
+          @if (isFormSubmitted()) {
+            @if (blogForm.get('content')?.hasError('required')) {
+              <mat-error class="error-text">Content is required</mat-error>
+            } @else if (blogForm.get('content')?.hasError('maxlength')) {
+              <mat-error class="error-text">Content is too long</mat-error>
+            }
+          }
+        </div>
+      </form>
+    } @else {
+      <app-preview-blog
+        [blogFormValues]="blogForm.getRawValue()"
+        [imageUrl]="previewUrl()"
+      ></app-preview-blog>
+    }
+  </div>
+</div>

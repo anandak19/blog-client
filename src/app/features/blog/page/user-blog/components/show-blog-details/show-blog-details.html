@@ -1,0 +1,20 @@
+<div class="blog-details">
+  <div class="head">
+    
+    <div class="title">
+      <h1>{{ blogDetails()?.title }}</h1>
+    </div>
+    <div class="author">
+      <p>{{ blogDetails()?.writerName }}</p>
+      <p>{{ blogDetails()?.createdAt | date }}</p>
+    </div>
+
+    <div class="cover-image">
+        <img [src]="blogDetails()?.image" alt="">
+    </div>
+  </div>
+
+  <div class="body">
+    <div [innerHTML]="blogDetails()?.content"></div>
+  </div>
+</div>

@@ -1,1 +1,19 @@
-<p>create-blog works!</p>
+<div class="create-blog full-page">
+  <div class="create-blog__wrapper">
+    <div class="create-blog__header">
+      <button mat-icon-button class="back-btn" (click)="onBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <h2 class="title">Create Blog</h2>
+    </div>
+
+    <div class="create-blog__content">
+      <app-blog-editor-component
+        (blogFormData)="createNewBlog($event)"
+        [isFormLoading]="isFormLoading"
+        [isFormSubmitted]="isFormSubmitted"
+      ></app-blog-editor-component>
+    </div>
+  </div>
+</div>

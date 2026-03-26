@@ -116,3 +116,47 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .signup {
+    padding: 16px;
+
+    &__wrapper {
+      height: auto; 
+      max-width: 100%;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    &__form {
+      max-width: 100%;
+      padding-top: 0;
+
+      .form-controls {
+        gap: 16px;
+
+        .name-fields {
+          flex-direction: column; //  stack first & last name
+        }
+      }
+
+      .actions {
+        width: 100%;
+
+        &--double {
+          flex-direction: column; //  buttons stack
+        }
+      }
+
+      button {
+        width: 100%; //  full width buttons
+        align-self: stretch;
+      }
+    }
+
+    &__extras {
+      text-align: center;
+      margin-top: 16px;
+    }
+  }
+}
