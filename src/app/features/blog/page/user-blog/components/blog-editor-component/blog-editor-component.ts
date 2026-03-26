@@ -138,8 +138,6 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
 
   onFormSubmit() {
     this.isFormSubmitted.set(true);
-
-    console.log(this.blogForm.value);
     if (this.blogForm.valid) {
       if (!this.isEditMode && !this.selectedFile()) {
         this._snackbar.error('Please add an image');

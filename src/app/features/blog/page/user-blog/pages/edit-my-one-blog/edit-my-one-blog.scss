@@ -37,4 +37,10 @@
   &__content {
     margin-top: 10px;
   }
+
+  @include respond('xs') {
+    &__wrapper {
+      width: 100%;
+    }
+  }
 }
